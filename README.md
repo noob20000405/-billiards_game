@@ -6,6 +6,7 @@ final java project using the 8-balls rules
 - 一人击1 - 7号球, 另一人击9 - 15号, 完成该任务后击打8号球入袋者获胜
 ## class list
 - Table.java
+- Border.java
 - Ball.java
   - Solid.java
     > 1 - 7号球
