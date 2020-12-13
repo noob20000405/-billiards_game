@@ -7,20 +7,20 @@ final java project using the 8-balls rules
 ## class list
 - Table.java
 - Ball.java
- - Solid.java
-  - Nb1.java
-  - Nb2.java
-  - ...
-  - Nb7.java
- - striped.java
-  - Nb9.java
-  - ...
-  - Nb15.java
- - CueBall.java
- - Nb8.java
+  - Solid.java
+    - Nb1.java
+    - Nb2.java
+    - ...
+    - Nb7.java
+  - striped.java
+    - Nb9.java
+    - ...
+    - Nb15.java
+  - CueBall.java
+  - Nb8.java
 - Cue.java
 - Player.java
- - P1.java
- - P2.java
+  - P1.java
+  - P2.java
 - Menu.java
 - Global.java
