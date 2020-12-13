@@ -7,7 +7,8 @@ final java project using the 8-balls rules
 ## class list
 - Table.java
 - Ball.java
-  - Solid.java > 1 - 7号球
+  - Solid.java
+  > 1 - 7号球
     - Nb1.java
     - Nb2.java
     - ...
