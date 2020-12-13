@@ -24,3 +24,5 @@ final java project using the 8-balls rules
   - P2.java
 - Menu.java
 - Global.java
+## 要求
+![image](https://raw.githubusercontent.com/noob20000405/readme_pic/master/images/java_project_request.png)
