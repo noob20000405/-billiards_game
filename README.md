@@ -1,4 +1,4 @@
-# -billiards_game
+# billiards_game
 final java project using the 8-balls rules
 ## basic rules
 - two player
