@@ -10,15 +10,8 @@ final java project using the 8-balls rules
 - Ball.java
   - Solid.java
     > 1 - 7号球
-    - Nb1.java
-    - Nb2.java
-    - ...
-    - Nb7.java
   - striped.java
     > 9 - 15号球
-    - Nb9.java
-    - ...
-    - Nb15.java
   - CueBall.java
     > 白球（母球）
   - Nb8.java
