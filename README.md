@@ -18,8 +18,6 @@ final java project using the 8-balls rules
 - Cue.java
   > 球杆
 - Player.java
-  - P1.java
-  - P2.java
 - Menu.java
   > GUI的菜单
 - Button.java
