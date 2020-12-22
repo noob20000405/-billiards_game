@@ -1,0 +1,19 @@
+Idee :
+Un jeu de billard avec la regle americain(plus simple).
+On veut essayer de realiser une interface graphique.
+
+List class :
+Materiel.java
+Table.java(heritage de Materiel)
+Bordure.java
+Bille.java(heritage de Materiel) implements Roulant.java
+  Basses.java(heritage de Bille.java)
+  Hautes.java(heritage de Bille.java)
+  Noire.java(heritage de Bille.java)
+  Blanche.java(heritage de Bille.java)
+Bande.java(heritage de Materiel)
+Joueur.java implements Fautif.java
+Menu.java
+Bouton.java
+Global.java
+GameStart.java
