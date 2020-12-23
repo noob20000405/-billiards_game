@@ -1,23 +1,13 @@
-public class Bille extends Materiel implements Mobile {
-  private int x;
-  private int y;
+import javax.swing.*;
+import java.awt.*;
+public class Bille extends Cercle implements Mobile {
   private int vitesse;
   private double direction;
 	
-  public Bille(String path, int x, int y) {
-    super(path);
-    this.x = x;
-    this.y = y;
-    this.vitesse = 2;
-    this.direction = Global.pi / 3;
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public int getY() {
-    return y;
+  public Bille(int x, int y, int r, Color color) {
+    super(x, y, r, color);
+    this.vitesse = 2; //test
+    this.direction = Global.pi / 3; // test data
   }
 
   public void deplacer() {
@@ -26,10 +16,10 @@ public class Bille extends Materiel implements Mobile {
   }
 
   public void rebondirBordure() {
-    if (x < 50 || x > 800) {
+    if (x < Global.tapOffset || x > Global.tapOffset + Global.tapWidth - width) {
       direction = Global.pi - direction;
     }
-    if (y < 80 || y > 450) {
+    if (y < Global.tapOffset || y > Global.tapOffset + Global.tapHeight - height) {
       direction = -direction;
     }
   }
