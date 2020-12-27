@@ -2,15 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameStart extends Frame {
-  Bille bille1 = new Bille(50, 80, Global.billeR, new Color(255, 255, 255));
-  Bille bille2 = new Bille(50, 100, Global.billeR, new Color(255, 255, 255));
+  Bille bille1 = new Bille(250, 100, Global.billeR, new Color(255, 255, 255), 10, Global.pi/3);
+  Bille bille2 = new Bille(500, 100, Global.billeR, new Color(255, 0, 255), 5, Global.pi/3);
+  Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 100, 255), 5, Global.pi/2);
   Tapis tapis = new Tapis(Global.tapOffset, Global.tapOffset, Global.tapWidth, Global.tapHeight, new Color(0, 128, 0));
-  Trou[] trous = {new Trou(Global.tapOffset - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
+  Trou[] trous = {
+                  new Trou(Global.tapOffset - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
                   new Trou(Global.tapOffset - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR), 
                   new Trou(Global.tabWidth / 2 - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
                   new Trou(Global.tabWidth / 2 - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR), 
                   new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
-                  new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR)};
+                  new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR)
+                 };
   Table table = new Table(0, 0, Global.tabWidth, Global.tabHeight, new Color(139,69,19), tapis, trous);
 
   public GameStart() {
@@ -46,9 +49,25 @@ public class GameStart extends Frame {
     // Dessiner les billes
     g.setColor(bille1.getColor());
     g.fillOval(bille1.getX(), bille1.getY(), bille1.getWidth(), bille1.getHeight());
+    g.setColor(bille2.getColor());
+    g.fillOval(bille2.getX(), bille2.getY(), bille2.getWidth(), bille2.getHeight());
+    g.setColor(bille3.getColor());
+    g.fillOval(bille3.getX(), bille3.getY(), bille3.getWidth(), bille3.getHeight());
+
+
+
+
+    bille2.rebondirBille(bille1);
+    bille2.rebondirBille(bille3);
+    bille1.rebondirBille(bille3);
+
+    bille1.rebondirBordure();
+    bille2.rebondirBordure();
+    bille3.rebondirBordure();
 
     bille1.deplacer();
-    bille1.rebondirBordure();
+    bille2.deplacer();
+    bille3.deplacer();
 
     repaint();
 
