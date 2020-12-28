@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 public class Bille extends Cercle implements Mobile {
   private double vitesse;
+  //private final double vAcceleree = 10;
   private double direction;
 
   public Bille(int x, int y, int r, Color color, double v, double d) {
@@ -71,7 +72,7 @@ public class Bille extends Cercle implements Mobile {
       b.vitesse = Math.sqrt(v2x * v2x + v2y * v2y);
       if (Math.abs(v1x) < 0.01) {
         System.out.println("<0.1");
-        direction = Global.pi / 2;
+        direction = -direction;
       } else {
         if (v1x < 0) {
           direction = Math.atan(v1y / v1x) + Global.pi;
@@ -82,7 +83,7 @@ public class Bille extends Cercle implements Mobile {
       } 
       if (Math.abs(v2x) < 0.01) {
         System.out.println("<0.1");
-        b.direction = Global.pi / 2;
+        b.direction = -b.direction;
       } else {
         if (v2x < 0) {
           b.direction = Math.atan(v2y / v2x) + Global.pi;
@@ -93,6 +94,10 @@ public class Bille extends Cercle implements Mobile {
       System.out.println("direc " + direction);
       System.out.println("b.direc " + b.direction);
       System.out.println("=================");
+
+      deplacer();
+      b.deplacer();
     }
+    
   }
 }
