@@ -12,7 +12,7 @@ public class Bille extends Cercle implements Mobile {
 
   public void deplacer() {
     x += vitesse * Math.cos(direction);
-    y += vitesse * Math.sin(direction);
+    y -= vitesse * Math.sin(direction);
     centreX = getX() + getR();
     centreY = getY() + getR();
   }
@@ -21,7 +21,7 @@ public class Bille extends Cercle implements Mobile {
     if (x < Global.tapOffset || x > Global.tapOffset + Global.tapWidth - width) {
       direction = Global.pi - direction;
       deplacer();/////////////
-      System.out.println("change " + direction);//////////////
+      //System.out.println("change " + direction);//////////////
     }
     if (y < Global.tapOffset || y > Global.tapOffset + Global.tapHeight - height) {
       direction = -direction;
@@ -41,47 +41,58 @@ public class Bille extends Cercle implements Mobile {
     int y1 = super.centreY;
     int y2 = b.centreY;
     double d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-    //System.out.println(d);////////////////////
+    double v1x = vitesse * Math.cos(direction);
+    double v1y = vitesse * Math.sin(direction);
+    double v2x = b.vitesse * Math.cos(b.direction);
+    double v2y = b.vitesse * Math.sin(b.direction);
+
 
     if (Math.abs(d) < Global.epsilon + 2 * getR()) {
+      System.out.println("v1x " + v1x);///////////////
+      System.out.println("v1y " + v1y);
+      System.out.println("v2x " + v2x);
+      System.out.println("v2y " + v2y);
       //System.out.println("fk");///////////////////////////
-      if (x1 != x2) {
-        double angle = Math.atan((y1 - y2) / (x1 - x2));
-        double vitesseB1X = Math.cos(b.direction - angle) * b.vitesse;
-        double vitesseB2X = Math.cos(direction - angle) * vitesse;
-        double vitesseB1Y = Math.sin(direction - angle) * vitesse;
-        double vitesseB2Y = Math.sin(b.direction - angle) * b.vitesse;
-        System.out.println("vB1X :" + vitesseB1X);
-        System.out.println("vB1Y :" + vitesseB1Y);
-        System.out.println("vB2X :" + vitesseB2X);
-        System.out.println("vB2Y :" + vitesseB2Y);//////////
+      double tmpVx;
+      double tmpVy;
 
-        if (Math.abs(vitesseB1X) < Global.epsilon) {
-          direction = Global.pi / 2 + angle;
-        } else {
-          direction = Math.atan(vitesseB1Y / vitesseB1X) + angle + 3.14;////
-        }
-        if (Math.abs(vitesseB2X) < Global.epsilon) {
-          b.direction = Global.pi / 2 + angle;
-        } else {
-          b.direction = Math.atan(vitesseB2Y / vitesseB2X) + angle;
-        }
-        System.out.println("d1 " + direction + ", vB1X " + vitesseB1X);/////////////
-        System.out.println("d2 " + b.direction);
-
-        vitesse = (Math.sqrt(vitesseB1X * vitesseB1X + vitesseB1Y * vitesseB1Y));
-        b.vitesse = (Math.sqrt(vitesseB2X * vitesseB2X + vitesseB2Y * vitesseB2Y));
-        System.out.println("v1 " + vitesse);/////////////
-        System.out.println("v2 " + b.vitesse);
+      tmpVx = v1x;
+      tmpVy = v1y;
+      v1x = v2x;
+      v1y = v2y;
+      v2x = tmpVx;
+      v2y = tmpVy;
+      System.out.println("change");
+      System.out.println("v1x " + v1x);///////////////
+      System.out.println("v1y " + v1y);
+      System.out.println("v2x " + v2x);
+      System.out.println("v2y " + v2y);
+      vitesse = Math.sqrt(v1x * v1x + v1y * v1y);
+      b.vitesse = Math.sqrt(v2x * v2x + v2y * v2y);
+      if (Math.abs(v1x) < 0.01) {
+        System.out.println("<0.1");
+        direction = Global.pi / 2;
       } else {
-        double tmpV = vitesse;
-        double tmpD = direction;
-
-        vitesse = b.vitesse;
-        direction = b.direction;
-        b.vitesse = tmpV;
-        b.direction = tmpD;
+        if (v1x < 0) {
+          direction = Math.atan(v1y / v1x) + Global.pi;
+        } else {
+          direction = Math.atan(v1y / v1x);
+        }
+        
+      } 
+      if (Math.abs(v2x) < 0.01) {
+        System.out.println("<0.1");
+        b.direction = Global.pi / 2;
+      } else {
+        if (v2x < 0) {
+          b.direction = Math.atan(v2y / v2x) + Global.pi;
+        } else {
+          b.direction = Math.atan(v2y / v2x);
+        }
       }
+      System.out.println("direc " + direction);
+      System.out.println("b.direc " + b.direction);
+      System.out.println("=================");
     }
   }
 }

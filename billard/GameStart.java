@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameStart extends Frame {
-  Bille bille1 = new Bille(250, 100, Global.billeR, new Color(255, 255, 255), 10, Global.pi/3);
-  Bille bille2 = new Bille(500, 100, Global.billeR, new Color(255, 0, 255), 5, Global.pi/3);
+  Bille bille1 = new Bille(450, 200, Global.billeR, new Color(255, 255, 255), 10, 0);
+  Bille bille2 = new Bille(500, 200, Global.billeR, new Color(255, 0, 255), 5, 0);
   Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 100, 255), 5, Global.pi/2);
   Tapis tapis = new Tapis(Global.tapOffset, Global.tapOffset, Global.tapWidth, Global.tapHeight, new Color(0, 128, 0));
   Trou[] trous = {
@@ -57,7 +57,7 @@ public class GameStart extends Frame {
 
 
 
-    bille2.rebondirBille(bille1);
+    bille1.rebondirBille(bille2);
     bille2.rebondirBille(bille3);
     bille1.rebondirBille(bille3);
 
@@ -72,7 +72,7 @@ public class GameStart extends Frame {
     repaint();
 
     try {
-      Thread.sleep(10);
+      Thread.sleep(100);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
