@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 public class Bille extends Cercle implements Mobile {
   private double vitesse;
-  //private final double vAcceleree = 10;
+  private static double vAcceleree = 10;
   private double direction;
 
   public Bille(int x, int y, int r, Color color, double v, double d) {
@@ -16,6 +16,14 @@ public class Bille extends Cercle implements Mobile {
     y -= vitesse * Math.sin(direction);
     centreX = getX() + getR();
     centreY = getY() + getR();
+
+    if (vitesse > 0.1) {
+      vAcceleree -= 1;
+      if (vAcceleree == 0) {
+        vitesse -= 1;
+        vAcceleree = 10;
+      }
+    }
   }
 
   public void rebondirBordure() {
@@ -72,7 +80,12 @@ public class Bille extends Cercle implements Mobile {
       b.vitesse = Math.sqrt(v2x * v2x + v2y * v2y);
       if (Math.abs(v1x) < 0.01) {
         System.out.println("<0.1");
-        direction = -direction;
+        if (v1y > 0) {
+          direction = Global.pi / 2;
+        } else {
+          direction = -Global.pi / 2;
+        }
+        //direction = -direction;
       } else {
         if (v1x < 0) {
           direction = Math.atan(v1y / v1x) + Global.pi;
@@ -83,7 +96,12 @@ public class Bille extends Cercle implements Mobile {
       } 
       if (Math.abs(v2x) < 0.01) {
         System.out.println("<0.1");
-        b.direction = -b.direction;
+        if (v2y > 0) {
+          b.direction = Global.pi / 2;
+        } else {
+          b.direction = -Global.pi / 2;
+        }
+        //b.direction = -b.direction;
       } else {
         if (v2x < 0) {
           b.direction = Math.atan(v2y / v2x) + Global.pi;

@@ -2,9 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameStart extends Frame {
-  Bille bille1 = new Bille(500, 200, Global.billeR, new Color(255, 255, 255), 2, Global.pi/2);
-  Bille bille2 = new Bille(500, 125, Global.billeR, new Color(255, 100, 255), 0, Global.pi/2);
-  Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 0, 255), 2, Global.pi/2);
+  // vitesse : 5, 10, 15, 20
+  Bille bille1 = new Bille(500, 250, Global.billeR, new Color(255, 255, 255), 20, Global.pi/2);
+  Bille bille2 = new Bille(500, 150, Global.billeR, new Color(255, 100, 255), 0, Global.pi/2);
+  Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 0, 255), 0, Global.pi/2);
   Tapis tapis = new Tapis(Global.tapOffset, Global.tapOffset, Global.tapWidth, Global.tapHeight, new Color(0, 128, 0));
   Trou[] trous = {
                   new Trou(Global.tapOffset - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
@@ -46,6 +47,10 @@ public class GameStart extends Frame {
   public void paint(Graphics g) {
     super.paint(g);
 
+    //get mouse posotion
+    //Point point = java.awt.MouseInfo.getPointerInfo().getLocation();
+    //System.out.println("Location:x=" + point.x + ", y=" + point.y);
+
     // Dessiner les billes
     g.setColor(bille1.getColor());
     g.fillOval(bille1.getX(), bille1.getY(), bille1.getWidth(), bille1.getHeight());
@@ -72,7 +77,7 @@ public class GameStart extends Frame {
     repaint();
 
     try {
-      Thread.sleep(20);
+      Thread.sleep(200);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
