@@ -1,9 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import java.awt.event.MouseAdapter;
+
 
 public class GameStart extends Frame {
   // vitesse : 5, 10, 15, 20
-  Bille bille1 = new Bille(500, 250, Global.billeR, new Color(255, 255, 255), 20, Global.pi/2);
+  Bille bille1 = new Bille(500, 250, Global.billeR, new Color(255, 255, 255), 0, Global.pi/2);
   Bille bille2 = new Bille(500, 150, Global.billeR, new Color(255, 100, 255), 0, Global.pi/2);
   Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 0, 255), 0, Global.pi/2);
   Tapis tapis = new Tapis(Global.tapOffset, Global.tapOffset, Global.tapWidth, Global.tapHeight, new Color(0, 128, 0));
@@ -16,13 +20,31 @@ public class GameStart extends Frame {
                   new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR)
                  };
   Table table = new Table(0, 0, Global.tabWidth, Global.tabHeight, new Color(139,69,19), tapis, trous);
+  Bande bande = new Bande(bille1);
 
   public GameStart() {
     setSize(Global.tabWidth, Global.tabHeight);
     setLocation(50, 50);
     //JFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+    
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton()==e.BUTTON1){
+          bande.frapper();
+				}else if(e.getButton()==e.BUTTON2){
+
+				}
+				else if(e.getButton()==e.BUTTON3){
+	
+				}
+			}
+		});
+
   }
+
+
   
   Image offScreenImage = null;
   public void update(Graphics g) {
@@ -62,6 +84,8 @@ public class GameStart extends Frame {
 
 
 
+
+
     bille1.rebondirBille(bille2);
     bille2.rebondirBille(bille3);
     bille1.rebondirBille(bille3);
@@ -74,10 +98,15 @@ public class GameStart extends Frame {
     bille2.deplacer();
     bille3.deplacer();
 
+    // Dessiner la bande
+    g.setColor(bande.getColor());
+    g.drawLine(bande.getX(), bande.getY(), bande.getSourisX(), bande.getSourisY());
+    bande.viser();
+
     repaint();
 
     try {
-      Thread.sleep(200);
+      Thread.sleep(20);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

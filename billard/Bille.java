@@ -13,7 +13,7 @@ public class Bille extends Cercle implements Mobile {
 
   public void deplacer() {
     x += vitesse * Math.cos(direction);
-    y -= vitesse * Math.sin(direction);
+    y += vitesse * Math.sin(direction);
     centreX = getX() + getR();
     centreY = getY() + getR();
 
@@ -117,5 +117,10 @@ public class Bille extends Cercle implements Mobile {
       b.deplacer();
     }
     
+  }
+
+  public void etreFrappee(double v, double d) {
+    vitesse = v;
+    direction = d;
   }
 }
