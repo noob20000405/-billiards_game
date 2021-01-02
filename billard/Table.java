@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 public class Table extends Materiel {
+  // 桌子上的桌布和洞们
   private Tapis tapis;
   private Trou[] trous;
 

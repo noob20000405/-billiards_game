@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Blanche extends Bille implements Mobile {
-    /** 白球上一次在桌上静止时的位置 */
+public class Noir extends Bille implements Mobile {
+    // 黑球的这个class几乎和白球的一样 除了最后的collisiontrou
     private int precedentX;
     private int precedentY;
 
-    public Blanche(int x, int y) {
-        super(x, y, Global.billeR, new Color(255, 255, 255), 0, 0);
+    public Noir(int x, int y) {
+        super(x, y, Global.billeR, new Color(0, 0, 0), 0, 0);
     }
 
-    /** 白球移动 */
     @Override
     public void deplacer() {
         x += vitesse * Math.cos(direction);
@@ -38,14 +37,20 @@ public class Blanche extends Bille implements Mobile {
         return precedentY;
     }
 
-    /** 如果白球进洞 则回到桌上上一次球静止的位置 */
+    // 如果一玩家再打进7球后打进黑球 则获胜 否则提前打进黑球  则黑球返回原位 交换击球
     public void collisionTrou(Trou[] trous, Joueur j, Joueur j1) {
         for (int i = 0 ; i < trous.length ; i++) {
             double dis = Math.sqrt((trous[i].centreX - this.centreX) * (trous[i].centreX - this.centreX) +  (trous[i].centreY - this.centreY) * (trous[i].centreY - this.centreY));
             if (dis < 30) {
-              vitesse = 0;
-              x = precedentX;
-              y = precedentY;
+                vitesse = 0;
+                if (j.getPoche().getNbBilles() == 7 && j.estEnTour()) {
+                    j.getPoche().marquer(this);
+                } else if (j1.getPoche().getNbBilles() == 7 && j1.estEnTour()) {
+                    j1.getPoche().marquer(this);
+                } else {
+                    x = precedentX;
+                    y = precedentY;
+                }
             }
         }
     }

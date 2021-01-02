@@ -1,3 +1,3 @@
 public interface Mobile {
-  public void rebondirTrou(Trou[] trous, Poche poche);
+  public void collisionTrou(Trou[] trous, Joueur j, Joueur j1);
 }
