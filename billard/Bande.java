@@ -22,18 +22,18 @@ public class Bande extends Materiel {
         y = but.y + Global.billeR;
     }
 
-    public void frapper() {
+    public void frapper(int force) {
         if (visible && y != sourisY && x != sourisX) {
             double angle = Math.atan((double)(y - sourisY) / (double)(x - sourisX));
             if (sourisX > x) angle += Global.pi;
 
-            System.out.println(angle);////////////////
+            /*System.out.println(angle);////////////////
             System.out.println((y - sourisY) / (x - sourisX));
             System.out.println("billex : " + x);
             System.out.println("billey : " + y);
             System.out.println("sx : " + sourisX);
-            System.out.println("sy : " + sourisY);
-            but.etreFrappee(10, angle);
+            System.out.println("sy : " + sourisY);*/
+            but.etreFrappee(5 * force, angle);
         }
     }
 

@@ -28,8 +28,12 @@ public class GameStart extends Frame {
 
   Poche poche = new Poche(50, 580);
 
+  int time;
+
 
   private GameStart() {
+
+    
 
     billes.add(bille1);
     billes.add(bille2);
@@ -41,17 +45,38 @@ public class GameStart extends Frame {
     setVisible(true);
     
 		addMouseListener(new MouseAdapter() {
+      long startTime;
+      long endTime;
+      long totalTime;
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton()==e.BUTTON1){
-          bande.frapper();
-				}else if(e.getButton()==e.BUTTON2){
-
-				}
-				else if(e.getButton()==e.BUTTON3){
-	
-				}
-			}
+			public void mousePressed(MouseEvent e1) {
+        startTime = System.currentTimeMillis();
+        //System.out.println(startTime);
+        time = 0;
+        //bande.frapper();
+      }
+      @Override
+      public void mouseReleased(MouseEvent e2) {
+        endTime  = System.currentTimeMillis();
+        totalTime = endTime - startTime; 
+        //System.out.println(startTime);
+        if (totalTime > 0) {
+          time = 1;
+          /*gOffScreen.setColor(new Color(255, 99, 71));
+          gOffScreen.fillRect(425 - 25 - 10 - 50, 520, 50, 10);*/
+        }
+        if (totalTime > 1000) {
+          time = 2;
+          /*gOffScreen.setColor(new Color(255,0,0));
+          gOffScreen.fillRect(425 - 25, 520, 50, 10);*/
+        }
+        if (totalTime > 2000) {
+          time = 3;
+          /*gOffScreen.setColor(new Color(220,20,60));
+          gOffScreen.fillRect(425 + 25 + 10, 520, 50, 10);*/
+        }
+        bande.frapper(time);
+      }
 		});
 
   }
@@ -125,6 +150,19 @@ public class GameStart extends Frame {
       billes.get(i).deplacer();
     }
 
+    // Dessiner time control
+    if (time >= 1) {
+      g.setColor(new Color(255, 99, 71));
+      g.fillRect(425 - 25 - 10 - 50, 520, 50, 10);
+    }
+    if (time >= 2) {
+      g.setColor(new Color(255,0,0));
+      g.fillRect(425 - 25, 520, 50, 10);
+    }
+    if (time >= 3) {
+      g.setColor(new Color(220,20,60));
+      g.fillRect(425 + 25 + 10, 520, 50, 10);
+    }
 
     /*bille1.rebondirBille(bille2);
     bille2.rebondirBille(bille3);
@@ -141,6 +179,11 @@ public class GameStart extends Frame {
     // Dessiner la bande
     if (Global.billesSontImmobiles(billes)) {
       bande.show();
+      // Repaint time control
+      g.setColor(new Color(211, 211, 211));
+      g.fillRect(425 - 25 - 10 - 50, 520, 50, 10);
+      g.fillRect(425 - 25, 520, 50, 10);
+      g.fillRect(425 + 25 + 10, 520, 50, 10);
     } else {
       bande.hide();
     }
