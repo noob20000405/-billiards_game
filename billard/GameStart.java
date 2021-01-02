@@ -4,12 +4,14 @@ import java.awt.event.MouseEvent;
 
 import java.awt.event.MouseAdapter;
 
+import java.util.ArrayList;
+
 
 public class GameStart extends Frame {
   // vitesse : 5, 10, 15, 20
-  Bille bille1 = new Bille(500, 250, Global.billeR, new Color(255, 255, 255), 0, Global.pi/2);
-  Bille bille2 = new Bille(500, 150, Global.billeR, new Color(255, 100, 255), 0, Global.pi/2);
-  Bille bille3 = new Bille(500, 50, Global.billeR, new Color(255, 0, 255), 0, Global.pi/2);
+  Bille bille1 = new Blanche(500, 250);
+  Bille bille2 = new Basse(500, 150, new Color(255, 100, 255));
+  Bille bille3 = new Haute(500, 50, new Color(255, 0, 255));
   Tapis tapis = new Tapis(Global.tapOffset, Global.tapOffset, Global.tapWidth, Global.tapHeight, new Color(0, 128, 0));
   Trou[] trous = {
                   new Trou(Global.tapOffset - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
@@ -22,8 +24,18 @@ public class GameStart extends Frame {
   Table table = new Table(0, 0, Global.tabWidth, Global.tabHeight, new Color(139,69,19), tapis, trous);
   Bande bande = new Bande(bille1);
 
-  public GameStart() {
-    setSize(Global.tabWidth, Global.tabHeight);
+  ArrayList<Bille> billes = new ArrayList<Bille>();
+
+  Poche poche = new Poche(50, 580);
+
+
+  private GameStart() {
+
+    billes.add(bille1);
+    billes.add(bille2);
+    billes.add(bille3);
+
+    setSize(Global.tabWidth, Global.tabHeight + Global.plancheHeight);
     setLocation(50, 50);
     //JFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
@@ -48,8 +60,11 @@ public class GameStart extends Frame {
   
   Image offScreenImage = null;
   public void update(Graphics g) {
-    if (offScreenImage == null) offScreenImage = this.createImage(table.getWidth(), table.getHeight());
+    if (offScreenImage == null) offScreenImage = this.createImage(table.getWidth(), table.getHeight() + Global.plancheHeight);
     Graphics gOffScreen = offScreenImage.getGraphics();
+    // Dessiner bkg
+    gOffScreen.setColor(new Color(255, 255, 255));
+    gOffScreen.fillRect(0, 0, table.getWidth(), table.getHeight() + Global.plancheHeight);
     // Dessiner la table
     gOffScreen.setColor(table.getColor());
     gOffScreen.fillRect(table.getX(), table.getY(), table.getWidth(), table.getHeight());
@@ -60,6 +75,19 @@ public class GameStart extends Frame {
     gOffScreen.setColor(trous[0].getColor());
     for (int i = 0 ; i < 6 ; i++) {
       gOffScreen.fillOval(trous[i].getX(), trous[i].getY(), trous[i].getWidth(), trous[i].getHeight());
+    }
+
+    // Dessiner time control
+    gOffScreen.setColor(new Color(211, 211, 211));
+    gOffScreen.fillRect(425 - 25 - 10 - 50, 520, 50, 10);
+    gOffScreen.fillRect(425 - 25, 520, 50, 10);
+    gOffScreen.fillRect(425 + 25 + 10, 520, 50, 10);
+
+
+    // Dessiner les cercles dans la poche
+    gOffScreen.setColor(new Color(211, 211, 211));
+    for (int i = 0 ; i < 6 ; i++) {
+      gOffScreen.fillOval(poche.getX() + i * (2 * Global.billeR + 10), poche.getY(), Global.billeR * 2, Global.billeR * 2);
     }
     
     paint(gOffScreen);
@@ -74,19 +102,31 @@ public class GameStart extends Frame {
     //System.out.println("Location:x=" + point.x + ", y=" + point.y);
 
     // Dessiner les billes
-    g.setColor(bille1.getColor());
+    /* g.setColor(bille1.getColor());
     g.fillOval(bille1.getX(), bille1.getY(), bille1.getWidth(), bille1.getHeight());
     g.setColor(bille2.getColor());
     g.fillOval(bille2.getX(), bille2.getY(), bille2.getWidth(), bille2.getHeight());
     g.setColor(bille3.getColor());
-    g.fillOval(bille3.getX(), bille3.getY(), bille3.getWidth(), bille3.getHeight());
+    g.fillOval(bille3.getX(), bille3.getY(), bille3.getWidth(), bille3.getHeight());*/
+    for (int i = 0 ; i < billes.size() ; i++) {
+      g.setColor(billes.get(i).getColor());
+      g.fillOval(billes.get(i).getX(), billes.get(i).getY(), billes.get(i).getWidth(), billes.get(i).getHeight());
+      if (billes.get(i) instanceof Haute) {
+        g.setColor(((Haute)billes.get(i)).getColorRayure());
+        g.fillOval(((Haute)billes.get(i)).getX() + ((Haute)billes.get(i)).getWidthRayure() / 2, ((Haute)billes.get(i)).getY() + ((Haute)billes.get(i)).getWidthRayure() / 2, ((Haute)billes.get(i)).getWidthRayure(), ((Haute)billes.get(i)).getWidthRayure());
+      }
+
+      billes.get(i).rebondirBordure();
+      billes.get(i).rebondirTrou(trous, poche);
+      for (int j = 0 ; j < billes.size() ; j++) {
+        billes.get(i).rebondirBille(billes.get(j));
+      }
+
+      billes.get(i).deplacer();
+    }
 
 
-
-
-
-
-    bille1.rebondirBille(bille2);
+    /*bille1.rebondirBille(bille2);
     bille2.rebondirBille(bille3);
     bille1.rebondirBille(bille3);
 
@@ -96,12 +136,20 @@ public class GameStart extends Frame {
 
     bille1.deplacer();
     bille2.deplacer();
-    bille3.deplacer();
+    bille3.deplacer();*/
 
     // Dessiner la bande
-    g.setColor(bande.getColor());
-    g.drawLine(bande.getX(), bande.getY(), bande.getSourisX(), bande.getSourisY());
-    bande.viser();
+    if (Global.billesSontImmobiles(billes)) {
+      bande.show();
+    } else {
+      bande.hide();
+    }
+
+    if (bande.estVisible()) {
+      g.setColor(bande.getColor());
+      g.drawLine(bande.getX(), bande.getY(), bande.getSourisX(), bande.getSourisY());
+      bande.viser();
+    }
 
     repaint();
 

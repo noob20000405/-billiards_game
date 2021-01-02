@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.ArrayList;
+
 public class Global {
   public static final double pi = 3.14;
 
@@ -16,4 +18,16 @@ public class Global {
   public static final int tapOffset = 50;
 
   public static final double epsilon = 0.1;
+
+  // Planche
+  public static final int plancheHeight = 100;
+  public static final int pocheWidth = 180; // (billeR * 2 + 10) * 6
+  public static final int pocheHeight = 20; // billeR * 2
+
+  public static boolean billesSontImmobiles(ArrayList<Bille> billes) {
+    for (int i = 0 ; i < billes.size() ; i++) {
+      if (billes.get(i).estMobile()) return false;
+    }
+    return true;
+  }
 }

@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 public class Bille extends Cercle implements Mobile {
-  private double vitesse;
-  private static double vAcceleree = 10;
-  private double direction;
+  protected double vitesse;
+  protected static double vAcceleree = 10;
+  protected double direction;
 
   public Bille(int x, int y, int r, Color color, double v, double d) {
     super(x, y, r, color);
@@ -122,5 +122,23 @@ public class Bille extends Cercle implements Mobile {
   public void etreFrappee(double v, double d) {
     vitesse = v;
     direction = d;
+  }
+
+  public boolean estMobile() {
+    if (Math.abs(vitesse) < 0.1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public void rebondirTrou(Trou[] trous, Poche poche) {
+    for (int i = 0 ; i < trous.length ; i++) {
+      double dis = Math.sqrt((trous[i].centreX - this.centreX) * (trous[i].centreX - this.centreX) +  (trous[i].centreY - this.centreY) * (trous[i].centreY - this.centreY));
+      if (dis < 30) {
+        this.vitesse = 0;
+        poche.marquer(this);
+      }
+    }
   }
 }

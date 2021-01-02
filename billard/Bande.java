@@ -5,12 +5,14 @@ public class Bande extends Materiel {
     private int sourisX;
     private int sourisY;
     private Bille but;
+    private boolean visible;
 
     public Bande(Bille b) {
         super(b.x, b.y, 0, 0, new Color(255, 255, 255));
         sourisX = java.awt.MouseInfo.getPointerInfo().getLocation().x;
         sourisY = java.awt.MouseInfo.getPointerInfo().getLocation().y;
         but = b;
+        visible = false;
     }
 
     public void viser() {
@@ -21,7 +23,7 @@ public class Bande extends Materiel {
     }
 
     public void frapper() {
-        if (y != sourisY && x != sourisX) {
+        if (visible && y != sourisY && x != sourisX) {
             double angle = Math.atan((double)(y - sourisY) / (double)(x - sourisX));
             if (sourisX > x) angle += Global.pi;
 
@@ -41,5 +43,17 @@ public class Bande extends Materiel {
 
     public int getSourisY() {
         return sourisY;
+    }
+
+    public boolean estVisible() {
+        return visible;
+    }
+
+    public void show() {
+        visible = true;
+    }
+
+    public void hide() {
+        visible = false;
     }
 }

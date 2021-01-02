@@ -1,5 +1,3 @@
 public interface Mobile {
-  public void deplacer();
-  public void rebondirBordure();
-  public void rebondirBille(Bille b);
+  public void rebondirTrou(Trou[] trous, Poche poche);
 }
