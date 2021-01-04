@@ -1,18 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
-public class Bille extends Cercle implements Mobile {
+public abstract class Bille extends Cercle implements Mobile {
   /** 运动速度 */
-  protected double vitesse;
+  protected int vitesse;
   /** 加速度 */
   protected double vAcceleree = 10;
   /** 运动方向 */
   protected double direction;
+  protected boolean surTable;
 
-  public Bille(int x, int y, int r, Color color, double v, double d) {
+  public Bille(int x, int y, int r, Color color, int v, double d) {
     super(x, y, r, color);
     this.vitesse = v;
     this.direction = d;
     this.vAcceleree = 10;
+    this.surTable = true;
+  }
+
+  public void setPos(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
 
   /** 按照方向和速度移动 */
@@ -24,7 +31,7 @@ public class Bille extends Cercle implements Mobile {
     centreY = getY() + getR();
 
 
-    if (vitesse > 0.1) { // 每deplacer十次 球的速度减少1
+    if (vitesse > 0) { // 每deplacer十次 球的速度减少1
       vAcceleree -= 1;
       if (vAcceleree == 0) {
         vitesse -= 1;
@@ -32,9 +39,9 @@ public class Bille extends Cercle implements Mobile {
       }
     }
 
-    if (vitesse < 1) {
+    /*if (vitesse < 1) {
       vitesse = 0;
-    }
+    }*/
   }
 
   /** 碰撞桌子边缘反弹 pb1号*/
@@ -47,6 +54,13 @@ public class Bille extends Cercle implements Mobile {
     }
     if (suivantY <= Global.tapOffset || suivantY >= Global.tapOffset + Global.tapHeight - height) {
       direction = -direction;
+    }
+
+    if (surTable) {
+      if (x < Global.tapOffset) x = Global.tapOffset;
+      if (x > Global.tapOffset + Global.tapWidth - width) x = Global.tapOffset + Global.tapWidth - width;
+      if (y < Global.tapOffset) y = Global.tapOffset;
+      if (y > Global.tapOffset + Global.tapHeight - height) y = Global.tapOffset + Global.tapHeight - height;
     }
   }
 
@@ -66,7 +80,7 @@ public class Bille extends Cercle implements Mobile {
 
       if (Math.abs(d) < Global.epsilon + 2 * getR()) {
 
-        double tmpV;
+        int tmpV;
         double tmpD;
 
         tmpV = vitesse;
@@ -80,21 +94,6 @@ public class Bille extends Cercle implements Mobile {
         b.deplacer();
       }
 
-    }
-  }
-
-  /** 球被球竿击打 */
-  public void etreFrappee(double v, double d) {
-    vitesse = v;
-    direction = d;
-  }
-
-  /** 判断球是否在移动 */
-  public boolean estMobile() {
-    if (Math.abs(vitesse) < 0.1) { // 因为vitesse是double 所以条件不是 == 0
-      return false;
-    } else {
-      return true;
     }
   }
 
@@ -118,4 +117,22 @@ public class Bille extends Cercle implements Mobile {
       }
     }
   }
+
+  /** 球被球竿击打 */
+  public void etreFrappee(int v, double d) {
+    vitesse = v;
+    direction = d;
+  }
+
+  /** 判断球是否在移动 */
+  public boolean estMobile() {
+    if (vitesse == 0) { // 因为vitesse是double 所以条件不是 == 0
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public abstract void afficherColor();
+
 }

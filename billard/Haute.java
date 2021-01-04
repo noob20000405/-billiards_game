@@ -5,8 +5,8 @@ public class Haute extends Bille {
     private final Color colorRayure = new Color(245, 245, 245);
     private final int widthRayrue = 10;
 
-    public Haute(int x, int y, Color color) {
-        super(x, y, Global.billeR, color, 0, 0);
+    public Haute(int x, int y) {
+        super(x, y, Global.billeR, new Color(0, 0, 255), 0, 0);
     }
 
     public Color getColorRayure() {
@@ -18,6 +18,10 @@ public class Haute extends Bille {
     }
 
     public Haute clone() {
-        return new Haute(x, y, color);
+        return new Haute(x, y);
+    }
+
+    public void afficherColor() {
+        System.out.println("Bleue et blanche");
     }
 }

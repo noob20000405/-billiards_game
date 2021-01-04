@@ -23,7 +23,7 @@ public class Blanche extends Bille implements Mobile {
         centreX = getX() + getR();
         centreY = getY() + getR();
     
-        if (vitesse > 0.1) {
+        if (vitesse > 0) {
           vAcceleree -= 1;
           if (vAcceleree == 0) {
             vitesse -= 1;
@@ -53,5 +53,9 @@ public class Blanche extends Bille implements Mobile {
               y = precedentY;
             }
         }
+    }
+
+    public void afficherColor() {
+        System.out.println("Blanche");
     }
 }

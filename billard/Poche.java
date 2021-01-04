@@ -15,6 +15,7 @@ public class Poche extends Materiel {
   public void marquer(Bille b) { 
       b.x = this.x + nbBilles * (2 * Global.billeR + 10);
       b.y = this.y;
+      b.surTable = false;
       billes[nbBilles] = b;
       nbBilles++;
   }

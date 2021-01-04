@@ -1,35 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-
 import java.awt.event.MouseAdapter;
-
 import java.util.ArrayList;
 
 
 public class GameStart extends Frame {
   
   // 一坨instances
-  // 球们
-  Bille[] billes = {
-    Blanche.getSingletonBlanche(),
-    new Basse(500, 150, new Color(255, 0, 0)),
-    new Basse(500, 200, new Color(255, 0, 0)),
-    new Basse(500, 250, new Color(255, 0, 0)),
-    new Basse(500, 300, new Color(255, 0, 0)),
-    new Basse(550, 150, new Color(255, 0, 0)),
-    new Basse(550, 200, new Color(255, 0, 0)),
-    new Basse(550, 250, new Color(255, 0, 0)),
-    new Haute(550, 300, new Color(0, 0, 255)),
-    new Haute(600, 150, new Color(0, 0, 255)),
-    new Haute(600, 200, new Color(0, 0, 255)),
-    new Haute(600, 250, new Color(0, 0, 255)),
-    new Haute(600, 300, new Color(0, 0, 255)),
-    new Haute(650, 150, new Color(0, 0, 255)),
-    new Haute(650, 200, new Color(0, 0, 255)),
-    new Noir(650, 250)
-  };
-
   Table table = Table.getSingletonTable();
 
   // 玩家1（j）的球竿是白色的 目标球是basse球 玩家2（j1）黑色 haute球
@@ -39,8 +17,40 @@ public class GameStart extends Frame {
   // 击球的力度
   int force;
 
+  // qiu
+  Bille billes[] = new Bille[16];
+  Blanche blanche = Blanche.getSingletonBlanche();
+  Noir noir = new Noir(540, 250);
+  Basse basse = new Basse(0, 0);
+  Haute haute = new Haute(0, 0);
+
 
   private GameStart() {
+
+    // qiu de wei zhi
+    billes[0] = blanche;
+    billes[1] = noir;
+    for (int i = 2 ; i < 9 ; i++) {
+      billes[i] = basse.clone();
+    }
+    for (int i = 9 ; i < 16 ; i++) {
+      billes[i] = haute.clone();
+    }
+  
+    billes[2].setPos(580, 273);
+    billes[3].setPos(580, 227);
+    billes[4].setPos(660, 273);
+    billes[5].setPos(660, 227);
+    billes[6].setPos(660, 319);
+    billes[7].setPos(660, 181);
+    billes[8].setPos(700, 250);
+    billes[9].setPos(700, 296);
+    billes[10].setPos(700, 204);
+    billes[11].setPos(700, 158);
+    billes[12].setPos(700, 342);
+    billes[13].setPos(620, 204);
+    billes[14].setPos(620, 296);
+    billes[15].setPos(620, 250);
 
     // 设置窗口属性
     setSize(Global.tabWidth, Global.tabHeight + Global.plancheHeight);
@@ -217,7 +227,7 @@ public class GameStart extends Frame {
 
     // 每次重新画前停顿20毫秒 
     try {
-      Thread.sleep(20);
+      Thread.sleep(10);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
