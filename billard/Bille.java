@@ -46,61 +46,35 @@ public class Bille extends Cercle implements Mobile {
 
   /** 碰撞另一个球反弹 bug2号 这个函数可以不用看 我感觉要大改 TT*/
   public void collisionBille(Bille b) {
-    int x1 = super.centreX;
-    int x2 = b.centreX;
-    int y1 = super.centreY;
-    int y2 = b.centreY;
-    double d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-    double v1x = vitesse * Math.cos(direction);
-    double v1y = vitesse * Math.sin(direction);
-    double v2x = b.vitesse * Math.cos(b.direction);
-    double v2y = b.vitesse * Math.sin(b.direction);
+    if (this != b) {
 
+      int x1 = super.centreX;
+      int x2 = b.centreX;
+      int y1 = super.centreY;
+      int y2 = b.centreY;
+      double d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+      double v1x = vitesse * Math.cos(direction);
+      double v1y = vitesse * Math.sin(direction);
+      double v2x = b.vitesse * Math.cos(b.direction);
+      double v2y = b.vitesse * Math.sin(b.direction);
 
-    if (Math.abs(d) < Global.epsilon + 2 * getR()) {
-      double tmpVx;
-      double tmpVy;
+      if (Math.abs(d) < Global.epsilon + 2 * getR()) {
 
-      tmpVx = v1x;
-      tmpVy = v1y;
-      v1x = v2x;
-      v1y = v2y;
-      v2x = tmpVx;
-      v2y = tmpVy;
-      vitesse = Math.sqrt(v1x * v1x + v1y * v1y);
-      b.vitesse = Math.sqrt(v2x * v2x + v2y * v2y);
-      if (Math.abs(v1x) < 0.01) {
-        if (v1y > 0) {
-          direction = Global.pi / 2;
-        } else {
-          direction = -Global.pi / 2;
-        }
-      } else {
-        if (v1x < 0) {
-          direction = Math.atan(v1y / v1x) + Global.pi;
-        } else {
-          direction = Math.atan(v1y / v1x);
-        }
-        
-      } 
-      if (Math.abs(v2x) < 0.01) {
-        if (v2y > 0) {
-          b.direction = Global.pi / 2;
-        } else {
-          b.direction = -Global.pi / 2;
-        }
-      } else {
-        if (v2x < 0) {
-          b.direction = Math.atan(v2y / v2x) + Global.pi;
-        } else {
-          b.direction = Math.atan(v2y / v2x);
-        }
+        double tmpV;
+        double tmpD;
+
+        tmpV = vitesse;
+        tmpD = direction;
+        vitesse = b.vitesse;
+        direction = b.direction;
+        b.vitesse = tmpV;
+        b.direction = tmpD;
+
+        deplacer();
+        b.deplacer();
       }
 
-      deplacer();
-      b.deplacer();
     }
-    
   }
 
   /** 球被球竿击打 */

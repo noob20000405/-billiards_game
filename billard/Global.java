@@ -31,9 +31,9 @@ public class Global {
   public static final int pocheHeight = 20; // billeR * 2
 
   /** 判断桌上的所有球是不是都是静止的 */
-  public static boolean billesSontImmobiles(ArrayList<Bille> billes) {
-    for (int i = 0 ; i < billes.size() ; i++) {
-      if (billes.get(i).estMobile()) return false;
+  public static boolean billesSontImmobiles(Bille[] billes) {
+    for (int i = 0 ; i < billes.length ; i++) {
+      if (billes[i].estMobile()) return false;
     }
     return true;
   }

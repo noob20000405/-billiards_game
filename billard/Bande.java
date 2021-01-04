@@ -10,11 +10,11 @@ public class Bande extends Materiel {
     /** 球竿是否隐藏（击球后隐藏直到下一回合） */
     private boolean visible;
 
-    public Bande(Bille b, Color color) {
-        super(b.x, b.y, 0, 0, color);
+    public Bande(Color color) {
+        super(Blanche.getSingletonBlanche().getX(), Blanche.getSingletonBlanche().getY(), 0, 0, color);
         sourisX = java.awt.MouseInfo.getPointerInfo().getLocation().x;
         sourisY = java.awt.MouseInfo.getPointerInfo().getLocation().y;
-        but = b;
+        but = Blanche.getSingletonBlanche();
         visible = false;
     }
 

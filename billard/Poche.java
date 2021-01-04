@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 public class Poche extends Materiel {
   // 球带中球们和球的个数
@@ -7,7 +7,7 @@ public class Poche extends Materiel {
 
   public Poche(int x, int y) {
     super(x, y, Global.pocheWidth, Global.pocheHeight, null);
-    billes = new Bille[6];
+    billes = new Bille[8];
     nbBilles = 0;
   }
 

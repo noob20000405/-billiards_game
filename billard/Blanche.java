@@ -5,9 +5,14 @@ public class Blanche extends Bille implements Mobile {
     /** 白球上一次在桌上静止时的位置 */
     private int precedentX;
     private int precedentY;
+    private static Blanche singletonBlanche = new Blanche(250, 250);
 
-    public Blanche(int x, int y) {
+    private Blanche(int x, int y) {
         super(x, y, Global.billeR, new Color(255, 255, 255), 0, 0);
+    }
+
+    public static Blanche getSingletonBlanche() {
+        return singletonBlanche;
     }
 
     /** 白球移动 */

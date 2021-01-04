@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Joueur {
     // 玩家的球竿 球带
     private Bande bande;
@@ -10,13 +13,19 @@ public class Joueur {
     private int id;
     private static int cpt = 0;
 
-    public Joueur(Bande b, Poche p, boolean enTour) {
+    public Joueur(boolean enTour) {
         cpt++;
         id = cpt;
-        bande = b;
-        poche = p;
         this.enTour = enTour;
         gagneur = false;
+
+        if (id == 1) {
+            bande = new Bande(new Color(255, 255, 255));
+            poche = new Poche(50, 580);
+        } else if (id == 2) {
+            bande = new Bande(new Color(0, 0, 0));
+            poche = new Poche(Global.tabWidth - 50 - Global.pocheWidth, 580);
+        }
     }
 
     // 交换击球
@@ -50,6 +59,10 @@ public class Joueur {
     // 获取此人球带
     public Poche getPoche() {
         return poche;
+    }
+
+    public Bande getBande() {
+        return bande;
     }
 
 }
