@@ -17,10 +17,12 @@ public class Bille extends Cercle implements Mobile {
 
   /** 按照方向和速度移动 */
   public void deplacer() {
+
     x += vitesse * Math.cos(direction);
     y += vitesse * Math.sin(direction);
     centreX = getX() + getR();
     centreY = getY() + getR();
+
 
     if (vitesse > 0.1) { // 每deplacer十次 球的速度减少1
       vAcceleree -= 1;
@@ -29,9 +31,13 @@ public class Bille extends Cercle implements Mobile {
         vAcceleree = 10;
       }
     }
+
+    if (vitesse < 1) {
+      vitesse = 0;
+    }
   }
 
-  /** 碰撞桌子边缘反弹 bug1号*/
+  /** 碰撞桌子边缘反弹 pb1号*/
   public void collisionBordure() {
     int suivantX = x + (int)(vitesse * Math.cos(direction));
     int suivantY = y + (int)(vitesse * Math.sin(direction));
@@ -44,7 +50,7 @@ public class Bille extends Cercle implements Mobile {
     }
   }
 
-  /** 碰撞另一个球反弹 bug2号 这个函数可以不用看 我感觉要大改 TT*/
+  /** 碰撞另一个球反弹 pb2 TT*/
   public void collisionBille(Bille b) {
     if (this != b) {
 
