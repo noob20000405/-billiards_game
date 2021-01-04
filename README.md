@@ -6,6 +6,7 @@ final java project using the 8-balls rules
 ## 几个没来得及实现的点
 - 全都是弹性正碰
 - 没有考虑三个及以上的球同时碰撞的情况
+# 以下文本全没更新
 ## basic rules
 - two player
 - seven solid balls numbered 1 - 7, seven striped balls numbered 9 - 15, an 8 ball, and a cue ball(white ball)
