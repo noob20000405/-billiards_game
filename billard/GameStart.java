@@ -8,24 +8,24 @@ import java.util.ArrayList;
 public class GameStart extends Frame {
   
   // 一坨instances
-  Table table = Table.getSingletonTable();
+  private Table table = Table.getSingletonTable();
 
   // 玩家1（j）的球竿是白色的 目标球是basse球 玩家2（j1）黑色 haute球
-  Joueur j = new Joueur(true);
-  Joueur j1 = new Joueur(false);
+  private Joueur j = new Joueur(true);
+  private Joueur j1 = new Joueur(false);
 
   // 击球的力度
-  int force;
+  private int force;
 
   // qiu
-  Bille billes[] = new Bille[16];
-  Blanche blanche = Blanche.getSingletonBlanche();
-  Noir noir = new Noir(540, 250);
-  Basse basse = new Basse(0, 0);
-  Haute haute = new Haute(0, 0);
+  private Bille billes[] = new Bille[16];
+  private Blanche blanche = Blanche.getSingletonBlanche();
+  private Noir noir = new Noir(540, 250);
+  private Basse basse = new Basse(0, 0);
+  private Haute haute = new Haute(0, 0);
 
 
-  private GameStart() {
+  public GameStart() {
 
     // qiu de wei zhi
     billes[0] = blanche;
@@ -101,7 +101,7 @@ public class GameStart extends Frame {
   }
 
 
-  Image offScreenImage = null;
+  private Image offScreenImage = null;
   // 更新窗口背景 这个函数会被自动调用
   public void update(Graphics g) {
     if (offScreenImage == null) offScreenImage = this.createImage(table.getWidth(), table.getHeight() + Global.plancheHeight);
@@ -234,7 +234,7 @@ public class GameStart extends Frame {
   }
 
   // main 他会循环自动调用update 和 paint函数重画 形成动画效果
-  public static void main(String[] argv) {
+  /*public static void main(String[] argv) {
     GameStart game = new GameStart();
-  }
+  }*/
 }

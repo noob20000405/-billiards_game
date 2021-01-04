@@ -37,4 +37,9 @@ public class Global {
     }
     return true;
   }
+
+  public static void verifierParams(int nb) throws ErreurParamsException {
+    if (nb != 1) throw new ErreurParamsException("Nombre du parametre incorrect");
+    else return ;
+  }
 }
