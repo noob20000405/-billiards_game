@@ -1,8 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Noir extends Bille implements Mobile {
-    // 黑球的这个class几乎和白球的一样 除了最后的collisiontrou
     private int precedentX;
     private int precedentY;
 
@@ -37,7 +35,7 @@ public class Noir extends Bille implements Mobile {
         return precedentY;
     }
 
-    // 如果一玩家再打进7球后打进黑球 则获胜 否则提前打进黑球  则黑球返回原位 交换击球
+    /** Si le joueur a marqué 7 billes, puis il frappe la bille noire dans les trous, il gagne. Sinon on repositionner la bille noire */
     public void collisionTrou(Trou[] trous, Joueur j, Joueur j1) {
         for (int i = 0 ; i < trous.length ; i++) {
             double dis = Math.sqrt((trous[i].centreX - this.centreX) * (trous[i].centreX - this.centreX) +  (trous[i].centreY - this.centreY) * (trous[i].centreY - this.centreY));

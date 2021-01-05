@@ -1,8 +1,7 @@
-
-
 public class Poche extends Materiel {
-  // 球带中球们和球的个数
+  /** Les billes dans la poche */
   private Bille[] billes;
+  /** Nombre des billes */
   private int nbBilles;
 
   public Poche(int x, int y) {
@@ -11,7 +10,7 @@ public class Poche extends Materiel {
     nbBilles = 0;
   }
 
-  // 球进得分
+  /** Qqn frappe une bille dans les trous */
   public void marquer(Bille b) { 
       b.x = this.x + nbBilles * (2 * Global.billeR + 10);
       b.y = this.y;

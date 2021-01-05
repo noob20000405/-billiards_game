@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
+
 public class Haute extends Bille {
-    // haute球花纹的属性
+    /** Couleur et taille de la rayure */
     private final Color colorRayure = new Color(245, 245, 245);
     private final int widthRayrue = 10;
 

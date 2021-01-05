@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
+
 public class Table extends Materiel {
-  // 桌子上的桌布和洞们
+  /** Créer le tapis, les trous sur la table */
   private static Tapis tapis = Tapis.getSingletonTapis();
   private static Trou[] trous = {
     new Trou(Global.tapOffset - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
@@ -11,6 +11,7 @@ public class Table extends Materiel {
     new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset - Global.trouR, Global.trouR), 
     new Trou(Global.tapOffset + Global.tapWidth - Global.trouR, Global.tapOffset + Global.tapHeight - Global.trouR, Global.trouR)
   };
+  /** Créer le singleton */
   private static Table singletonTable = new Table(0, 0, Global.tabWidth, Global.tabHeight, new Color(139,69,19));
 
 

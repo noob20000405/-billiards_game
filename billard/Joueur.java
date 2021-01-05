@@ -1,16 +1,16 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Joueur {
-    // 玩家的球竿 球带
+    /** Bande et poche du joueur */
     private Bande bande;
     private Poche poche;
-    // 是否轮到此人击球
+    /** Si enTour == true, le joueur est en tour */
     private boolean enTour;
-    // 此人是否获胜
+    /** Si gagneur == true, il est le gagneur */
     private boolean gagneur;
-    // 玩家id
+    /** L'id du joueur, on a deux joueurs dans ce jeu */
     private int id;
+    /** Compteur du nombre de joueurs */
     private static int cpt = 0;
 
     public Joueur(boolean enTour) {
@@ -19,16 +19,16 @@ public class Joueur {
         this.enTour = enTour;
         gagneur = false;
 
-        if (id == 1) {
+        if (id == 1) { // S'il est le premier, sa bande est blanche, sa poche est à gauche
             bande = new Bande(new Color(255, 255, 255));
             poche = new Poche(50, 580);
-        } else if (id == 2) {
+        } else if (id == 2) { // S'il est le deuxième, sa bande est noire, sa poche est à droite
             bande = new Bande(new Color(0, 0, 0));
             poche = new Poche(Global.tabWidth - 50 - Global.pocheWidth, 580);
         }
     }
 
-    // 交换击球
+    /** Changer leur tour */
     public void changerTour() {
         if (enTour) {
             enTour = false;
@@ -37,26 +37,22 @@ public class Joueur {
         }
     }
 
-    // 是否轮到此人
     public boolean estEnTour() {
         return enTour;
+    }
+
+    public void gagner() {
+        gagneur = true;
     }
 
     public int getId() {
         return id;
     }
 
-    // 让此人胜利
-    public void gagner() {
-        gagneur = true;
-    }
-
-    // 此人是否获胜
     public boolean estGagneur() {
         return gagneur;
     }
 
-    // 获取此人球带
     public Poche getPoche() {
         return poche;
     }

@@ -1,13 +1,12 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Bande extends Materiel {
-    /** 鼠标的xy坐标 */
+    /** Coordonnées du souris */
     private int sourisX;
     private int sourisY;
-    /** 目标球 */
+    /** La bille pointée par cette bande */
     private Bille but;
-    /** 球竿是否隐藏（击球后隐藏直到下一回合） */
+    /** Si cette bande est visible */
     private boolean visible;
 
     public Bande(Color color) {
@@ -18,7 +17,7 @@ public class Bande extends Materiel {
         visible = false;
     }
 
-    /** 根据鼠标位置调整球竿位置 */
+    /** Viser par le changement de la position du souris */
     public void viser() {
         sourisX = java.awt.MouseInfo.getPointerInfo().getLocation().x;
         sourisY = java.awt.MouseInfo.getPointerInfo().getLocation().y;
@@ -26,12 +25,12 @@ public class Bande extends Materiel {
         y = but.y + Global.billeR;
     }
 
-    /** 击球 */
+    /** Frapper le but */
     public void frapper(int force) {
         if (visible && y != sourisY && x != sourisX) {
             double angle = Math.atan((double)(y - sourisY) / (double)(x - sourisX));
             if (sourisX > x) angle += Global.pi;
-            but.etreFrappee(5 * force, angle);
+            but.etreFrappee(Global.uniteVitesse * force, angle);
         }
     }
 

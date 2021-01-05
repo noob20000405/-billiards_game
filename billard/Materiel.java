@@ -1,8 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class Materiel {
-  // 物品的位置 尺寸 颜色
+  /** Coordonnées, taille, couleur du matériel */
   protected int x;
   protected int y;
   protected int width;
