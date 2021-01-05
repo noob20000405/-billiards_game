@@ -41,9 +41,9 @@ public class Noir extends Bille implements Mobile {
             double dis = Math.sqrt((trous[i].centreX - this.centreX) * (trous[i].centreX - this.centreX) +  (trous[i].centreY - this.centreY) * (trous[i].centreY - this.centreY));
             if (dis < 30) {
                 vitesse = 0;
-                if (j.getPoche().getNbBilles() == 7 && j.estEnTour()) {
+                if (j.getPoche().getNbBilles() == 7 && j1.estEnTour()) { // Joueur j1 est en tour, cela signifie que c'est joueur j qui a frappé la bille noire dans le trou, car les joueurs vont changer leur tour après la frappe (dans GameStart.java)
                     j.getPoche().marquer(this);
-                } else if (j1.getPoche().getNbBilles() == 7 && j1.estEnTour()) {
+                } else if (j1.getPoche().getNbBilles() == 7 && j.estEnTour()) { // Avec la meme raison
                     j1.getPoche().marquer(this);
                 } else {
                     x = precedentX;
