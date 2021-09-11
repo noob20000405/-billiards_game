@@ -1,6 +1,6 @@
 # billiards_game
 final java project using the 8-balls rules
-文档不想更新了，要tm期末考试了
+文档不想更新了，期末考试了
 截图
 ![image](https://raw.githubusercontent.com/noob20000405/readme_pic/master/images/billardJeu.png)
 ## 几个没来得及实现的点
